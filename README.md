@@ -41,7 +41,7 @@ menu callbacks. Lint with `luacheck .`, format with `stylua .`.
 ## Releases
 
 Publishing a GitHub release runs `.github/workflows/release.yml`, which builds
-`ReagentInBags-<tag>.zip` with the [BigWigs packager](https://github.com/BigWigsMods/packager)
+`ReagentInBags.zip` with the [BigWigs packager](https://github.com/BigWigsMods/packager)
 (layout in `.pkgmeta`) and attaches it to the release. The same zip works for
 manual installs (unzip into `Interface/AddOns`) and for CurseForge. To upload
 to CurseForge automatically, add the `CF_API_KEY` repository secret and an

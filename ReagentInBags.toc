@@ -2,7 +2,7 @@
 ## Title: Reagent In Bags
 ## Notes: Adds the reagent bag to the combined backpack window, so the normal bag key opens everything in one place.
 ## Author: oliver
-## Version: 1.0.0
+## Version: 1.1.0
 ## SavedVariables: ReagentInBagsDB
 ## IconTexture: Interface\Icons\INV_Misc_Bag_10_Green
 ## AddonCompartmentFunc: ReagentInBags_OnAddonCompartmentClick

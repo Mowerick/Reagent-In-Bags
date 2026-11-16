@@ -1,0 +1,30 @@
+name: Release
+
+# Runs when you publish a GitHub release. The tag of that release becomes the
+# version in the zip's file name.
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: write # attach the zip to the release
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # the packager reads tags/history
+
+      # Builds ReagentInBags-<tag>.zip (top-level ReagentInBags/ folder, per .pkgmeta)
+      # and attaches it to this GitHub release. That one zip works for manual
+      # installs and for CurseForge.
+      #
+      # Optional CurseForge upload: add the repo secret CF_API_KEY and put
+      #   ## X-Curse-Project-ID: <your project id>
+      # in ReagentInBags.toc. Without them the packager just skips CurseForge.
+      - uses: BigWigsMods/packager@v2
+        env:
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
+          CF_API_KEY: ${{ secrets.CF_API_KEY }}

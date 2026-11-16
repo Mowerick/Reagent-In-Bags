@@ -1,0 +1,10 @@
+# Used by the BigWigs packager (GitHub Action + CurseForge).
+# The zip gets a top-level ReagentInBags/ folder, which is what both CurseForge
+# and manual installs (unzip into Interface/AddOns) expect.
+package-as: ReagentInBags
+
+ignore:
+  - docs
+  - .github
+  - .luacheckrc
+  - .stylua.toml

@@ -1,0 +1,12 @@
+## Interface: 16001
+## Title: Reagent In Bags
+## Notes: Adds the reagent bag to the combined backpack window, so the normal bag key opens everything in one place.
+## SavedVariables: ReagentInBagsDB
+## Author: oliver
+## Version: 0.1.0
+## IconTexture: Interface\Icons\INV_Misc_Bag_10_Green
+## AddonCompartmentFunc: ReagentInBags_OnAddonCompartmentClick
+## AddonCompartmentFuncOnEnter: ReagentInBags_OnAddonCompartmentEnter
+## AddonCompartmentFuncOnLeave: ReagentInBags_OnAddonCompartmentLeave
+
+ReagentInBags.lua

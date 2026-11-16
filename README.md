@@ -4,6 +4,11 @@ World of Warcraft addon that shows the reagent bag slots inside the combined
 backpack window and hides the separate reagent bag window, so the normal bag
 key opens everything in one place.
 
+<<<<<<< Updated upstream
+=======
+![Combined backpack with the reagent bag section](docs/screenshot.png)
+
+>>>>>>> Stashed changes
 - Panel grows with the size of the equipped reagent bag.
 - `/rbag` (or the addon menu entry next to the minimap) opens the settings:
   panel colour (hue wheel), style (Blizzard / tinted) and titles on/off.

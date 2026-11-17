@@ -25,6 +25,7 @@ ns.Const = {
     color = { 0.15, 0.75, 0.65 },
     style = "blizzard", -- "blizzard" | "tinted"
     showTitles = true,
+    align = "right", -- slots hug the right edge like the bag grid ("right" | "left")
     bottom = false, -- experimental: panel below the item grid instead of under the search box
   },
 }

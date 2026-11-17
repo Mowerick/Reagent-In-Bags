@@ -8,7 +8,8 @@ key opens everything in one place.
 
 - Panel grows with the size of the equipped reagent bag.
 - `/rbag` (or the addon menu entry next to the minimap) opens the settings:
-  panel colour (hue wheel), style (Blizzard / tinted) and titles on/off.
+  panel colour (hue wheel), style (Blizzard / tinted), titles on/off and
+  slot alignment (right like the bag grid, or left).
 - `/rbag debug` prints how the bag frame is built (for bug reports).
 
 ## Install

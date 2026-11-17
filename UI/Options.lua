@@ -96,9 +96,13 @@ local function Build()
     ns.Config.SetShowTitles(self:GetChecked())
   end)
 
+  local alignRight = CreateCheckButton(panel, "Align slots to the right (like the bag grid)", titles, 0, function(self)
+    ns.Config.SetAlign(self:GetChecked() and "right" or "left")
+  end)
+
   local reset = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
   reset:SetSize(120, 24)
-  reset:SetPoint("TOPLEFT", titles, "BOTTOMLEFT", 0, -20)
+  reset:SetPoint("TOPLEFT", alignRight, "BOTTOMLEFT", 0, -20)
   reset:SetText("Reset")
   reset:SetScript("OnClick", ns.Config.ResetAppearance)
 
@@ -108,6 +112,7 @@ local function Build()
     blizzard:SetChecked(db.style ~= "tinted")
     tinted:SetChecked(db.style == "tinted")
     titles:SetChecked(db.showTitles)
+    alignRight:SetChecked(db.align ~= "left")
   end
   panel:SetScript("OnShow", panel.Refresh)
   panel.Refresh()

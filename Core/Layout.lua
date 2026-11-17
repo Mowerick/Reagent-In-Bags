@@ -47,10 +47,14 @@ local function AnchorPanel(panel, combined)
   end
 end
 
-local function PlaceSlots(panel, slotCount, columns, headerHeight)
+-- `firstCell` skips empty cells at the start of the grid: with right alignment the
+-- incomplete row is the first one and its empty cells are on the left, exactly
+-- like Blizzard's own bag grid.
+local function PlaceSlots(panel, slotCount, columns, headerHeight, firstCell)
   for i = 1, slotCount do
     local btn = ns.Slots.Get(i)
-    local col, row = (i - 1) % columns, math.floor((i - 1) / columns)
+    local cell = firstCell + i - 1
+    local col, row = cell % columns, math.floor(cell / columns)
     btn:ClearAllPoints()
     btn:SetPoint(
       "TOPLEFT",
@@ -89,9 +93,12 @@ function Layout.Run(blizzHeight)
   state.blizzHeight = blizzHeight or (combined:GetHeight() - state.extra)
 
   local innerWidth = combined:GetWidth() - 2 * C.SIDE
-  local columns = math.floor((innerWidth - 2 * C.PAD + C.SPACING) / (C.SLOT_SIZE + C.SPACING))
-  columns = math.max(1, math.min(columns, slotCount))
+  local fullColumns = math.max(1, math.floor((innerWidth - 2 * C.PAD + C.SPACING) / (C.SLOT_SIZE + C.SPACING)))
+  local alignRight = ns.db.align ~= "left"
+  -- Right aligned slots use the bag grid's columns so they line up with it.
+  local columns = alignRight and fullColumns or math.min(fullColumns, slotCount)
   local rows = math.ceil(slotCount / columns)
+  local firstCell = alignRight and (columns * rows - slotCount) or 0
 
   local showTitles = ns.db.showTitles
   local headerHeight = showTitles and C.HEADER or 0
@@ -105,7 +112,7 @@ function Layout.Run(blizzHeight)
   panel:SetHeight(height)
   ns.Panel.SetBackgroundHeight(height - footerHeight)
   ns.ItemShift.Set(combined, state.topMode and 0 or state.extra)
-  PlaceSlots(panel, slotCount, columns, headerHeight)
+  PlaceSlots(panel, slotCount, columns, headerHeight, firstCell)
 
   panel:Show()
 end

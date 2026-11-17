@@ -35,6 +35,7 @@ function Config.Init()
   end
   if db.style ~= "tinted" then db.style = "blizzard" end
   if db.showTitles == nil then db.showTitles = C.DEFAULTS.showTitles end
+  if db.align ~= "left" then db.align = "right" end
 
   ns.db = db
 end
@@ -54,6 +55,11 @@ function Config.SetShowTitles(show)
   Fire()
 end
 
+function Config.SetAlign(align)
+  ns.db.align = align == "left" and "left" or "right"
+  Fire()
+end
+
 function Config.SetBottomPlacement(bottom)
   ns.db.bottom = bottom and true or false
   Fire()
@@ -64,5 +70,6 @@ function Config.ResetAppearance()
   db.color = CopyColor(C.DEFAULTS.color)
   db.style = C.DEFAULTS.style
   db.showTitles = C.DEFAULTS.showTitles
+  db.align = C.DEFAULTS.align
   Fire()
 end

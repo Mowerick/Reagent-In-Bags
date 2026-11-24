@@ -20,4 +20,5 @@ read_globals = {
   "GameTooltip", "REAGENT_BAG",
   "SetItemButtonTexture", "SetItemButtonCount", "SetItemButtonDesaturated", "SetItemButtonQuality",
   "CooldownFrame_Set", "InterfaceOptions_AddCategory", "InterfaceOptionsFrame_OpenToCategory",
+  "ToggleAllBags", "CloseBackpack", "CloseBag",
 }

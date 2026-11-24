@@ -100,9 +100,13 @@ local function Build()
     ns.Config.SetAlign(self:GetChecked() and "right" or "left")
   end)
 
+  local bottom = CreateCheckButton(panel, "Show the reagent bag below the bag slots (instead of under the search box)", alignRight, 0, function(self)
+    ns.Config.SetBottomPlacement(self:GetChecked())
+  end)
+
   local reset = CreateFrame("Button", nil, panel, "UIPanelButtonTemplate")
   reset:SetSize(120, 24)
-  reset:SetPoint("TOPLEFT", alignRight, "BOTTOMLEFT", 0, -20)
+  reset:SetPoint("TOPLEFT", bottom, "BOTTOMLEFT", 0, -20)
   reset:SetText("Reset")
   reset:SetScript("OnClick", ns.Config.ResetAppearance)
 
@@ -113,6 +117,7 @@ local function Build()
     tinted:SetChecked(db.style == "tinted")
     titles:SetChecked(db.showTitles)
     alignRight:SetChecked(db.align ~= "left")
+    bottom:SetChecked(db.bottom)
   end
   panel:SetScript("OnShow", panel.Refresh)
   panel.Refresh()

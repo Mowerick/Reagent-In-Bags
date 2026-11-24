@@ -9,7 +9,9 @@ key opens everything in one place.
 - Panel grows with the size of the equipped reagent bag.
 - `/rbag` (or the addon menu entry next to the minimap) opens the settings:
   panel colour (hue wheel), style (Blizzard / tinted), titles on/off and
-  slot alignment (right like the bag grid, or left).
+  slot alignment (right like the bag grid, or left) and placement (under the
+  search box, or below the bag slots above the money bar).
+- `/rbag top` / `/rbag bottom` switch the placement directly.
 - `/rbag debug` prints how the bag frame is built (for bug reports).
 
 ## Install
@@ -23,7 +25,7 @@ ReagentInBags.toc        load order + addon-menu entry
 Core/Constants.lua       sizes, defaults
 Core/Util.lua            small frame helpers
 Core/Config.lua          saved settings, setters, change notifications
-Core/ItemShift.lua       moves Blizzard's item buttons (experimental bottom placement)
+Core/ItemShift.lua       moves Blizzard's item buttons up (bottom placement)
 Core/Layout.lua          window sizing, panel + slot placement
 Core/Debug.lua           /rbag debug
 Core/SlashCommands.lua   /rbag

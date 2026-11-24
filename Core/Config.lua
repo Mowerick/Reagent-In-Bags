@@ -36,6 +36,7 @@ function Config.Init()
   if db.style ~= "tinted" then db.style = "blizzard" end
   if db.showTitles == nil then db.showTitles = C.DEFAULTS.showTitles end
   if db.align ~= "left" then db.align = "right" end
+  db.bottom = db.bottom == true
 
   ns.db = db
 end

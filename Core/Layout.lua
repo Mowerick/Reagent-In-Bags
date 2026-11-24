@@ -35,16 +35,36 @@ local function TopOffset(combined)
   return C.TOP_FALLBACK
 end
 
+-- Bottom placement: the panel sits on top of the money bar (which itself moves up
+-- when tracked currencies are shown), exactly where the lowest item row was.
+-- The money bar is inset MONEY_INSET from the window sides.
+local MONEY_INSET = 8
+
 local function AnchorPanel(panel, combined)
   panel:ClearAllPoints()
+  local bagsTitle = panel.bagsTitle
+  bagsTitle:ClearAllPoints()
+
   if state.topMode then
     local top = TopOffset(combined)
     panel:SetPoint("TOPLEFT", combined, "TOPLEFT", C.SIDE, -top)
     panel:SetPoint("TOPRIGHT", combined, "TOPRIGHT", -C.SIDE, -top)
+    bagsTitle:SetPoint("BOTTOMLEFT", panel, "BOTTOMLEFT", C.PAD + 2, 2)
+    return
+  end
+
+  local money = combined.MoneyFrame
+  if money then
+    -- Flush on the money bar (never over its border); the item grid is shifted up
+    -- by the panel height, so it keeps Blizzard's gap above the panel instead.
+    panel:SetPoint("BOTTOMLEFT", money, "TOPLEFT", C.SIDE - MONEY_INSET, 0)
+    panel:SetPoint("BOTTOMRIGHT", money, "TOPRIGHT", MONEY_INSET - C.SIDE, 0)
   else
     panel:SetPoint("BOTTOMLEFT", combined, "BOTTOMLEFT", C.SIDE, C.BOTTOM_INSET)
     panel:SetPoint("BOTTOMRIGHT", combined, "BOTTOMRIGHT", -C.SIDE, C.BOTTOM_INSET)
   end
+  -- The "Bag" title labels the item grid, which now starts right under the search box.
+  bagsTitle:SetPoint("TOPLEFT", combined, "TOPLEFT", C.SIDE + C.PAD + 2, -TopOffset(combined))
 end
 
 -- `firstCell` skips empty cells at the start of the grid: with right alignment the
@@ -102,7 +122,8 @@ function Layout.Run(blizzHeight)
 
   local showTitles = ns.db.showTitles
   local headerHeight = showTitles and C.HEADER or 0
-  local footerHeight = showTitles and C.FOOTER or 0
+  -- Bottom placement: the "Bag" title lives under the search box, not in the panel.
+  local footerHeight = (showTitles and state.topMode) and C.FOOTER or 0
   local height = headerHeight + 2 * C.PAD + rows * C.SLOT_SIZE + (rows - 1) * C.SPACING + footerHeight
 
   state.extra = state.topMode and math.max(0, height - C.TRIM) or height
@@ -123,7 +144,7 @@ function Layout.Relayout()
   if combined and combined:IsShown() then Layout.Run() end
 end
 
---- true = panel under the search box (stable); false = below the item grid (experimental).
+--- true = panel under the search box; false = below the item grid.
 function Layout.SetTopMode(top)
   state.topMode = top and true or false
   state.missed = 0
@@ -160,6 +181,13 @@ function Layout.Verify(combined)
     state.topMode = true
     Layout.Run()
   end
+end
+
+--- Called right after Blizzard re-laid out the item grid (all anchors reset).
+function Layout.OnItemLayout(combined)
+  local panel = ns.Panel.Get()
+  if state.topMode or state.extra == 0 or not panel or not panel:IsShown() then return end
+  if ns.ItemShift.Set(combined, state.extra, true) then state.missed = 0 end
 end
 
 --- Called from the resize hooks; ignores resizes we made ourselves.

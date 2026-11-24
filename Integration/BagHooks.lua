@@ -41,6 +41,12 @@ function BagHooks.Install(combined)
   combined:HookScript("OnUpdate", ns.Layout.Verify)
   hooksecurefunc(combined, "SetHeight", function() ns.Layout.OnResizeCall(combined) end)
   hooksecurefunc(combined, "SetSize", function() ns.Layout.OnResizeCall(combined) end)
+  -- Blizzard re-anchors every item button to its MoneyFrame here (bags opened,
+  -- tracked currency changed, gamepad mode toggled): re-apply the bottom shift
+  -- before the frame renders.
+  if combined.UpdateItemLayout then
+    hooksecurefunc(combined, "UpdateItemLayout", function() ns.Layout.OnItemLayout(combined) end)
+  end
 
   ns.Util.ForEachContainerFrame(function(frame)
     if frame ~= combined then frame:HookScript("OnShow", DeferredSweep) end

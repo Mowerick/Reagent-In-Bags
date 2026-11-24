@@ -4,7 +4,7 @@ SLASH_REAGENTINBAGS1 = "/rbag"
 
 local function SetPlacement(placement)
   ns.Config.SetBottomPlacement(placement == "bottom")
-  print("|cff26bfa6ReagentInBags|r: panel placement = " .. placement .. " (close and reopen the bags)")
+  print("|cff26bfa6ReagentInBags|r: panel placement = " .. placement)
 end
 
 SlashCmdList.REAGENTINBAGS = function(message)

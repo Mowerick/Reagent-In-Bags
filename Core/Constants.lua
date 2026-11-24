@@ -14,7 +14,7 @@ ns.Const = {
   HEADER = 18, -- room for the "Reagent Bag" title above the slots
   FOOTER = 16, -- room for the "Bag" title under the slots
   SIDE = 1, -- inset of the panel from the bag window's left/right edge; SIDE + PAD is where the first slot starts and must match the bag grid (7)
-  BOTTOM_INSET = 28, -- bottom placement: distance above the window bottom (money bar + border)
+  BOTTOM_INSET = 28, -- bottom placement fallback (no money bar found): distance above the window bottom
   TRIM = 16, -- top placement: the bag already leaves this gap under the search box
   TOP_FALLBACK = 68, -- top placement: window top to just under the search box
 
@@ -26,6 +26,6 @@ ns.Const = {
     style = "blizzard", -- "blizzard" | "tinted"
     showTitles = true,
     align = "right", -- slots hug the right edge like the bag grid ("right" | "left")
-    bottom = false, -- experimental: panel below the item grid instead of under the search box
+    bottom = false, -- panel below the item grid instead of under the search box
   },
 }

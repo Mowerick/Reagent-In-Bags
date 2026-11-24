@@ -16,7 +16,10 @@ local function DescribePoint(frame, index, combined)
   local point, relativeTo, relativePoint, x, y = frame:GetPoint(index)
   local name = "nil"
   if relativeTo then
-    name = (relativeTo.GetName and relativeTo:GetName()) or (relativeTo == combined and "<combined>") or tostring(relativeTo)
+    name = (relativeTo.GetName and relativeTo:GetName())
+      or (relativeTo == combined and "<combined>")
+      or (relativeTo == combined.MoneyFrame and "<combined.MoneyFrame>")
+      or tostring(relativeTo)
   end
   return string.format("%s -> %s %s (%.1f, %.1f)", tostring(point), name, tostring(relativePoint), x or 0, y or 0)
 end
@@ -81,5 +84,5 @@ function Debug.Run()
     "height now %.1f, blizzHeight %.1f, extra %.1f, panel shown %s",
     combined:GetHeight(), state.blizzHeight, state.extra, tostring(panel and panel:IsShown())
   ))
-  Say("mode:", state.topMode and "top (stable)" or "bottom (experimental)", "extra:", state.extra, "itemOffset:", state.itemOffset)
+  Say("mode:", state.topMode and "top" or "bottom", "extra:", state.extra, "itemOffset:", state.itemOffset)
 end
